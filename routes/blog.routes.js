@@ -24,8 +24,8 @@ const uploads = multer({ storage, fileFilter });
 blogRouter.get('/blogs', getAllBlogs);
 blogRouter.post(
   '/blogs',
-  validate(blogCreationSchema),
   uploads.single('image'),
+  validate(blogCreationSchema),
   createBlogWithImage,
 );
 blogRouter.get('/blogs/:id', getBlogId);
