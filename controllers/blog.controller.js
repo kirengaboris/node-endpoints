@@ -30,7 +30,7 @@ const getBlogId = async (req, res) => {
   try {
     const blog = await blogModel.findOne({ _id: req.params.id });
     if (!blog) {
-      res.status(404).json({ error: "Blog doesn't exist!" });
+      res.status(404).json({ error: "Blog doesn't exist" });
       return;
     }
     res.send(blog);
