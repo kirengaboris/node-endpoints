@@ -9,5 +9,10 @@ const queriesSchema = Joi.object({
   email: Joi.string().email().required(),
   message: Joi.string().min(4).required(),
 });
+const userCreationSchema = Joi.object({
+  username: Joi.string().min(3).required(),
+  email: Joi.string().email().required(),
+  password: Joi.string().min(4).max(8),
+});
 
-export { blogCreationSchema, queriesSchema };
+export { blogCreationSchema, queriesSchema, userCreationSchema };

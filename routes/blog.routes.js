@@ -9,6 +9,10 @@ import {
 import multer from 'multer';
 import validate from '../middleware/validation/validation.middleware.js';
 import { blogCreationSchema } from '../middleware/validation/validation.js';
+import {
+  isLoggedIn,
+  isAdmin,
+} from '../middleware/authentication/auth.middleware.js';
 
 const blogRouter = Router();
 const storage = multer.diskStorage({});
@@ -24,11 +28,14 @@ const uploads = multer({ storage, fileFilter });
 blogRouter.get('/blogs', getAllBlogs);
 blogRouter.post(
   '/blogs',
-  uploads.single('image'),
-  validate(blogCreationSchema),
+  [isLoggedIn, isAdmin, uploads.single('image'), validate(blogCreationSchema)],
   createBlogWithImage,
 );
 blogRouter.get('/blogs/:id', getBlogId);
-blogRouter.patch('/blogs/:id', uploads.single('image'), updateBlog);
-blogRouter.delete('/blogs/:id', deleteBlog);
+blogRouter.patch(
+  '/blogs/:id',
+  [isLoggedIn, isAdmin, uploads.single('image')],
+  updateBlog,
+);
+blogRouter.delete('/blogs/:id', [isLoggedIn, isAdmin], deleteBlog);
 export default blogRouter;
