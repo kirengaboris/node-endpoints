@@ -4,6 +4,7 @@ import {
   getAllUsersService,
 } from '../services/auth.service.js';
 import jwt from 'jsonwebtoken';
+// import passport from 'passport';
 
 const handleNewUser = async (req, res) => {
   const { email, password, username } = req.body;

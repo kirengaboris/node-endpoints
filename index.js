@@ -1,9 +1,12 @@
 import express from 'express';
 import mongoose from 'mongoose';
+import session from 'express-session';
+import passport from 'passport';
 import BlogRoutes from './routes/blog.routes.js';
 import queryRouter from './routes/queries.routes.js';
 import bodyParser from 'body-parser';
 import authenticationRoutes from './routes/auth.routes.js';
+import * as confing_file from './configuration/passport.js';
 const PORT = process.env.PORT || 3000;
 
 const app = express();
@@ -12,6 +15,17 @@ app.use(
     limit: '50mb',
   }),
 );
+app.use(
+  session({
+    secret: 'this is the key',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: true },
+  }),
+);
+app.use(passport.initialize());
+app.use(passport.session());
+confing_file.login(passport);
 app.use(express.urlencoded({ extended: false }));
 app.use('/api', queryRouter);
 app.use('/api', BlogRoutes);

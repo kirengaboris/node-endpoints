@@ -10,6 +10,7 @@ import {
 } from '../middleware/authentication/auth.middleware.js';
 import { userCreationSchema } from '../middleware/validation/validation.js';
 import validate from '../middleware/validation/validation.middleware.js';
+import passport from 'passport';
 
 const authenticationRouter = Router();
 
@@ -19,6 +20,10 @@ authenticationRouter.post(
   handleNewUser,
 );
 authenticationRouter.get('/all-users', [isLoggedIn, isAdmin], getUsers);
-authenticationRouter.post('/login', login);
+authenticationRouter.post(
+  '/login',
+  passport.authenticate('local-login', { session: false }),
+  login,
+);
 
 export default authenticationRouter;
