@@ -1,14 +1,21 @@
 import { Router } from 'express';
 import {
+  addComment,
   createBlogWithImage,
   deleteBlog,
   getAllBlogs,
   getBlogId,
+  getComments,
+  like,
+  likesCounter,
   updateBlog,
 } from '../controllers/blog.controller.js';
 import multer from 'multer';
 import validate from '../middleware/validation/validation.middleware.js';
-import { blogCreationSchema } from '../middleware/validation/validation.js';
+import {
+  blogCreationSchema,
+  commentsSchema,
+} from '../middleware/validation/validation.js';
 import {
   isLoggedIn,
   isAdmin,
@@ -38,4 +45,13 @@ blogRouter.patch(
   updateBlog,
 );
 blogRouter.delete('/blogs/:id', [isLoggedIn, isAdmin], deleteBlog);
+blogRouter.post(
+  '/blogs/:id/comments',
+  [isLoggedIn, validate(commentsSchema)],
+  addComment,
+);
+blogRouter.get('/blogs/:id/comments', getComments);
+blogRouter.post('/blogs/:id/likes', isLoggedIn, like);
+blogRouter.get('/blogs/:id/likes', likesCounter);
+
 export default blogRouter;

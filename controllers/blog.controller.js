@@ -79,4 +79,121 @@ const deleteBlog = async (req, res) => {
   }
 };
 
-export { getAllBlogs, updateBlog, getBlogId, deleteBlog, createBlogWithImage };
+const addComment = async (req, res) => {
+  try {
+    const blog = await blogModel.findOne({ _id: req.params.id });
+    if (!blog) {
+      res
+        .status(404)
+        .json({ status: 404, success: false, message: "Blog doesn't exist" });
+      return;
+    } else {
+      blog.comments = [
+        ...blog.comments,
+        { comment: req.body.comment, user: req.user, blog: blog },
+      ];
+      blog.save();
+      res.status(201).json({
+        success: true,
+        message: `Comment added`,
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: `Server Error: Error when adding comment ${error.message}`,
+    });
+    console.log(`Error while adding comment ${error.message}`);
+  }
+};
+const getComments = async (req, res) => {
+  try {
+    const blog = await blogModel
+      .findOne({ _id: req.params.id })
+      .populate({
+        path: 'comments.user',
+        model: 'User',
+        select: 'username',
+      })
+      .populate({ path: 'comments.blog', model: 'Blog', select: 'title' });
+    if (!blog) {
+      res.status(404).json({ error: "Blog doesn't exist" });
+      return;
+    }
+
+    res.send(blog.comments);
+  } catch {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+const like = async (req, res) => {
+  try {
+    const blog = await blogModel.findById(req.params.id);
+    if (!blog) {
+      return res.status(404).send({
+        statusCode: 404,
+        success: false,
+        data: { message: 'Blog not found!' },
+      });
+    }
+    //check if the blog is already liked
+    const alreadyLiked = blog.likes.find(
+      (like) => like.user.toString() === req.user._id.toString(),
+    );
+    //unlike the blog
+    if (alreadyLiked) {
+      blog.likes = blog.likes.filter(
+        (like) => like.user.toString() !== req.user._id.toString(),
+      );
+    } else {
+      blog.likes.push({
+        user: req.user._id,
+        blog: req.params.blogId,
+      });
+    }
+    await blog.save();
+    res.status(201).json({
+      statusCode: 201,
+      success: true,
+      data: [{ message: 'Done', body: blog }],
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: `Server Error: Error when liking or disliking ${error.message}`,
+    });
+  }
+};
+const likesCounter = async (req, res) => {
+  try {
+    const blog = await blogModel.findOne({ _id: req.params.id });
+    if (!blog) {
+      res
+        .status(404)
+        .json({ status: 404, success: false, message: "Blog doesn't exist" });
+    } else {
+      res.status(200).json({
+        status: 200,
+        success: true,
+        message: `Number of likes: ${blog.likes.length}`,
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: `Server Error: Error when fetching likes ${error.message}`,
+    });
+  }
+};
+
+export {
+  getAllBlogs,
+  updateBlog,
+  getBlogId,
+  deleteBlog,
+  createBlogWithImage,
+  addComment,
+  getComments,
+  like,
+  likesCounter,
+};

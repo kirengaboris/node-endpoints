@@ -1,4 +1,6 @@
 import mongoose from 'mongoose';
+import { commentSchema } from './comments.model.js';
+import { likeSchema } from './likes.model.js';
 
 const schema = mongoose.Schema(
   {
@@ -14,6 +16,8 @@ const schema = mongoose.Schema(
       type: String,
       required: false,
     },
+    comments: [commentSchema],
+    likes: [likeSchema],
   },
   {
     timestamps: true,

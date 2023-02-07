@@ -14,5 +14,13 @@ const userCreationSchema = Joi.object({
   email: Joi.string().email().required(),
   password: Joi.string().min(4).max(8),
 });
+const commentsSchema = Joi.object({
+  comment: Joi.string().min(3).max(100).required(),
+});
 
-export { blogCreationSchema, queriesSchema, userCreationSchema };
+export {
+  blogCreationSchema,
+  queriesSchema,
+  userCreationSchema,
+  commentsSchema,
+};
