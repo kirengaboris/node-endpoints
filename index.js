@@ -8,7 +8,6 @@ import bodyParser from 'body-parser';
 import authenticationRoutes from './routes/auth.routes.js';
 import * as confing_file from './configuration/passport.js';
 const PORT = process.env.PORT || 3000;
-
 const app = express();
 app.use(
   bodyParser.json({
@@ -40,15 +39,18 @@ app.get('/', (req, res) => {
 app.listen(`${PORT}`, () => {
   console.log(`Server has started on http://localhost:${PORT} `);
 });
+if (process.env.NODE_ENV !== 'test') {
+  mongoose.set('strictQuery', false);
+  mongoose
+    .connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+    })
+    .then(() => {
+      console.log('DB Connected');
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
 
-mongoose.set('strictQuery', false);
-mongoose
-  .connect('mongodb://localhost:27017/learning-express', {
-    useNewUrlParser: true,
-  })
-  .then(() => {
-    console.log('DB Connected');
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+export default app;
