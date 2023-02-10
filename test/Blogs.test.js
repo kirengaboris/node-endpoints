@@ -4,6 +4,9 @@ import mongoose from 'mongoose';
 import blogModel from '../models/Blogs.model.js';
 import userModel from '../models/users.model.js';
 
+import Coveralls from '../Gemfile';
+Coveralls.wear;
+
 describe('BLOGS UNIT', () => {
   beforeEach(async () => {
     try {
