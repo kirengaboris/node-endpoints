@@ -38,8 +38,12 @@ const getBlogId = async (req, res) => {
   try {
     const blog = await blogModel.findOne({ _id: req.params.id });
 
-    res.json(blog);
-  } catch {
+    res.status(200).json({
+      status: 200,
+      success: true,
+      data: blog,
+    });
+  } catch (error) {
     res
       .status(400)
       .json({ status: 400, success: false, message: "Blog doesn't exist" });
