@@ -47,4 +47,4 @@ workflows:
 
 notify:
   webhooks:
-    - url: https://coveralls.io/webhook?repo_token=Q2iQGkqE12nn2tcDjCPmEEivozM1ckZHx
+    - url: https://coveralls.io/webhook?repo_token=${{secrets.COVERALLS_TOKEN}}
