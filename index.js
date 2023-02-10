@@ -36,9 +36,7 @@ app.get('/', (req, res) => {
     message: 'Welcome',
   });
 });
-app.listen(`${PORT}`, () => {
-  console.log(`Server has started on http://localhost:${PORT} `);
-});
+
 if (process.env.NODE_ENV !== 'test') {
   mongoose.set('strictQuery', false);
   mongoose
@@ -52,5 +50,8 @@ if (process.env.NODE_ENV !== 'test') {
       console.log(error);
     });
 }
+app.listen(`${PORT}`, () => {
+  console.log(`Server has started on http://localhost:${PORT} `);
+});
 
 export default app;
