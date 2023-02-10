@@ -39,8 +39,6 @@ const getBlogId = async (req, res) => {
     const blog = await blogModel.findOne({ _id: req.params.id });
 
     res.status(200).json({
-      status: 200,
-      success: true,
       data: blog,
     });
   } catch (error) {
