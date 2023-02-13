@@ -53,6 +53,7 @@ const getBlogId = async (req, res) => {
       status: 500,
       success: false,
       message: 'Server Error: Could get a single blog by id',
+      error: error.message,
     });
     console.log('Error while getting a single blog', error.message);
   }
@@ -116,12 +117,7 @@ const deleteBlog = async (req, res) => {
 const addComment = async (req, res) => {
   try {
     const blog = await blogModel.findOne({ _id: req.params.id });
-    // if (!blog) {
-    //   res
-    //     .status(404)
-    //     .json({ status: 404, success: false, message: "Blog doesn't exist" });
-    //   return;
-    // } if(){
+
     blog.comments = [
       ...blog.comments,
       { comment: req.body.comment, user: req.user, blog: blog },
@@ -132,14 +128,12 @@ const addComment = async (req, res) => {
       success: true,
       message: `Comment added`,
     });
-    // }
   } catch (error) {
     res.status(400).json({
       status: 400,
       success: false,
       message: `Blog doesn't exist`,
     });
-    // console.log(`Error while adding comment ${error.message}`);
   }
 };
 const getComments = async (req, res) => {

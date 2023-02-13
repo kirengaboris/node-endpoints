@@ -7,6 +7,7 @@ import queryRouter from './routes/queries.routes.js';
 import bodyParser from 'body-parser';
 import authenticationRoutes from './routes/auth.routes.js';
 import * as confing_file from './configuration/passport.js';
+import swaggerDocs from './docs/swagger.js';
 const PORT = process.env.PORT || 3000;
 const app = express();
 app.use(
@@ -52,6 +53,7 @@ if (process.env.NODE_ENV !== 'test') {
 }
 app.listen(`${PORT}`, () => {
   console.log(`Server has started on http://localhost:${PORT} `);
+  swaggerDocs(app, PORT);
 });
 
 export default app;
