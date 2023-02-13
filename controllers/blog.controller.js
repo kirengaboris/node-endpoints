@@ -37,14 +37,24 @@ const createBlogWithImage = async (req, res) => {
 const getBlogId = async (req, res) => {
   try {
     const blog = await blogModel.findOne({ _id: req.params.id });
-
-    res.status(200).json({
-      data: blog,
-    });
+    if (!blog) {
+      res
+        .status(400)
+        .json({ status: 400, success: false, message: "Blog doesn't exist" });
+    } else {
+      res.status(200).json({
+        status: 200,
+        success: true,
+        data: blog,
+      });
+    }
   } catch (error) {
-    res
-      .status(400)
-      .json({ status: 400, success: false, message: "Blog doesn't exist" });
+    res.status(500).json({
+      status: 500,
+      success: false,
+      message: 'Server Error: Could get a single blog by id',
+    });
+    console.log('Error while getting a single blog', error.message);
   }
 };
 

@@ -59,7 +59,8 @@ describe('BLOGS UNIT', () => {
   // get a single blog
   describe('GET /api/blogs/:id', () => {
     it("return a 400 status if '_id' is invalid", async () => {
-      const res = await request(app).get('/api/blogs/23333');
+      const id = mongoose.Types.ObjectId();
+      const res = await request(app).get(`/api/blogs/${id}`);
       expect(res.status).toEqual(400);
       const message = res.body.message;
       expect(message).toEqual("Blog doesn't exist");
