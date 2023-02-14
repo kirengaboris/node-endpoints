@@ -37,7 +37,7 @@
  *        description: Not Found
  */
 /*
- ******************************************* Get all users *******************************************
+ ******************************************* Get all queries *******************************************
  */
 /**
  * @openapi
@@ -45,7 +45,7 @@
  *  get:
  *     tags:
  *     - Queries
- *     summary: Get all users
+ *     summary: Get all queries
  *     responses:
  *       200:
  *         description: Success
