@@ -72,12 +72,13 @@
  *     requestBody:
  *      required: true
  *      content:
- *        application/json:
+ *        multipart/form-data:
  *           schema:
  *            type: object
  *            required:
  *              - title
  *              - content
+ *              - image
  *            properties:
  *              title:
  *                type: string
@@ -85,6 +86,9 @@
  *              content:
  *                type: string
  *                default: Content of the blog
+ *              image:
+ *                type: string
+ *                format: binary
  *     responses:
  *      201:
  *        description: Created
@@ -112,12 +116,13 @@
  *     requestBody:
  *      required: true
  *      content:
- *        application/json:
+ *        multipart/form-data:
  *           schema:
  *            type: object
  *            required:
  *              - title
  *              - content
+ *              - image
  *            properties:
  *              title:
  *                type: string
@@ -125,6 +130,9 @@
  *              content:
  *                type: string
  *                default: content
+ *              image:
+ *                type: string
+ *                format: binary
  *     responses:
  *      200:
  *        description: Updated
@@ -143,7 +151,7 @@
  *  delete:
  *     tags:
  *     - Blog
- *     summary: Remove blog by id
+ *     summary: Delete blog by id
  *     parameters:
  *      - name: id
  *        in: path
