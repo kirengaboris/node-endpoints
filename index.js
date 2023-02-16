@@ -8,12 +8,14 @@ import bodyParser from 'body-parser';
 import authenticationRoutes from './routes/auth.routes.js';
 import * as confing_file from './configuration/passport.js';
 import swaggerDocs from './docs/swagger.js';
+import cors from 'cors';
 const PORT = process.env.PORT || 3000;
 const app = express();
 app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   next();
 });
+app.use(cors());
 app.use(
   bodyParser.json({
     limit: '50mb',
