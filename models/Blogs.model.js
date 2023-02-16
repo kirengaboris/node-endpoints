@@ -4,6 +4,10 @@ import { likeSchema } from './likes.model.js';
 
 const schema = mongoose.Schema(
   {
+    topic: {
+      type: String,
+      required: true,
+    },
     title: {
       type: String,
       required: true,
