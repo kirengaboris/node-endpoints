@@ -79,10 +79,14 @@
  *           schema:
  *            type: object
  *            required:
+ *              - topic
  *              - title
  *              - content
  *              - image
  *            properties:
+ *              topic:
+ *                type: string
+ *                default: topic
  *              title:
  *                type: string
  *                default: title
