@@ -18,7 +18,6 @@ const options = {
         },
       },
     },
-
     swagger: '3.0',
   },
   apis: ['./docs/routes/*.routes.js', './docs/schemas/*.js'],
