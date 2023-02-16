@@ -66,6 +66,8 @@
  * @openapi
  * '/api/blogs':
  *  post:
+ *     security:
+ *      - bearerAuth: []
  *     tags:
  *     - Blog
  *     summary: Create a blog
@@ -105,6 +107,8 @@
  * @openapi
  * '/api/blogs/{id}':
  *  patch:
+ *     security:
+ *       - bearerAuth: []
  *     tags:
  *     - Blog
  *     summary: Update a blog
@@ -149,6 +153,8 @@
  * @openapi
  * '/api/blogs/{id}':
  *  delete:
+ *     security:
+ *       - bearerAuth: []
  *     tags:
  *     - Blog
  *     summary: Delete blog by id
@@ -172,6 +178,8 @@
  * @openapi
  * '/api/blogs/{id}/comments':
  *  post:
+ *     security:
+ *       - bearerAuth: []
  *     tags:
  *     - Blog
  *     summary: Add a comment to a blog
@@ -207,6 +215,8 @@
  * @openapi
  * '/api/blogs/{id}/likes':
  *  post:
+ *     security:
+ *       - bearerAuth: []
  *     tags:
  *     - Blog
  *     summary: Add or remove a like on a blog

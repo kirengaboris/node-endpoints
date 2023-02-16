@@ -43,6 +43,8 @@
  * @openapi
  * '/api/all-users':
  *  get:
+ *     security:
+ *       - bearerAuth: []
  *     tags:
  *     - Users
  *     summary: Get all users
