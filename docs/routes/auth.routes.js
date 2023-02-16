@@ -44,6 +44,7 @@
  * '/api/all-users':
  *  get:
  *     security:
+ *       - jwt: []
  *       - bearerAuth: []
  *     tags:
  *     - Users
