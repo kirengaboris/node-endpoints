@@ -62,7 +62,9 @@ const getBlogId = async (req, res) => {
 const updateBlog = async (req, res) => {
   try {
     const blog = await blogModel.findOne({ _id: req.params.id });
-
+    if (req.body.topic) {
+      blog.topic = req.body.topic;
+    }
     if (req.body.title) {
       blog.title = req.body.title;
     }

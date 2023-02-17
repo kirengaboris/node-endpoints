@@ -10,6 +10,7 @@ describe('BLOGS UNIT', () => {
       mongoose.set('strictQuery', false);
       await mongoose.connect(process.env.MONGO_URI_TEST);
       await blogModel.create({
+        topic: 'topic',
         title: 'title',
         content: 'content',
         image:
@@ -85,6 +86,7 @@ describe('BLOGS UNIT', () => {
         password: 'password',
       };
       const blog = {
+        topic: 'blog topic',
         title: 'blog title',
         content: 'blog content',
       };
@@ -96,6 +98,7 @@ describe('BLOGS UNIT', () => {
         .set('Authorization', 'Bearer ' + token);
       expect(createdBlog.status).toEqual(201);
       expect(createdBlog.body.data).toHaveProperty(
+        'topic',
         'title',
         'content',
         'likes',
@@ -116,6 +119,7 @@ describe('BLOGS UNIT', () => {
         password: 'password',
       };
       const blog = {
+        topic: 'blog topic',
         title: 'blog title',
         content: 'blog content',
       };
@@ -130,6 +134,7 @@ describe('BLOGS UNIT', () => {
         .set('Authorization', 'Bearer ' + token);
       expect(updatedBlog.status).toEqual(201);
       expect(updatedBlog.body.data).toHaveProperty(
+        'topic',
         'title',
         'content',
         'likes',
