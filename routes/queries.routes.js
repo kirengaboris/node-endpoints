@@ -1,5 +1,9 @@
 import { Router } from 'express';
-import { getAllQueries, sendQuery } from '../controllers/query.controller.js';
+import {
+  getAllQueries,
+  sendQuery,
+  updateSeenToTrue,
+} from '../controllers/query.controller.js';
 import {
   isAdmin,
   isLoggedIn,
@@ -10,5 +14,6 @@ const queryRouter = Router();
 
 queryRouter.get('/queries', [isLoggedIn, isAdmin], getAllQueries);
 queryRouter.post('/queries', validate(queriesSchema), sendQuery);
+queryRouter.patch('/queries/:id', [isLoggedIn, isAdmin], updateSeenToTrue);
 
 export default queryRouter;

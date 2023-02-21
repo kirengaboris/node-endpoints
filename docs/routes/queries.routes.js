@@ -66,3 +66,29 @@
  *       400:
  *         description: Bad request
  */
+/*
+ ******************************************* Mark As Read *******************************************
+ */
+/**
+ * @openapi
+ * '/api/queries/{id}':
+ *  patch:
+ *     security:
+ *       - jwt: []
+ *       - bearerAuth: []
+ *     tags:
+ *     - Queries
+ *     summary: Updated seen to true
+ *     parameters:
+ *      - name: id
+ *        in: path
+ *        description: The unique id of the blog
+ *        required: true
+ *     responses:
+ *      201:
+ *        description: Done
+ *      400:
+ *        description: Bad Request
+ *      404:
+ *        description: Not Found
+ */

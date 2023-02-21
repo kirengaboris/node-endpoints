@@ -15,4 +15,24 @@ const sendQuery = async (req, res) => {
   res.send(query);
 };
 
-export { getAllQueries, sendQuery };
+const updateSeenToTrue = async (req, res) => {
+  try {
+    const message = await queryModel.findById(req.params.id);
+
+    // update the seen value
+    message.seen = true;
+
+    // save the updated document
+    await message.save();
+
+    res.status(201).json({
+      statusCode: 201,
+      success: true,
+      data: [{ message: 'Done', body: message }],
+    });
+  } catch (error) {
+    res.status(400).json({ status: 400, success: false, message: error });
+  }
+};
+
+export { getAllQueries, sendQuery, updateSeenToTrue };
